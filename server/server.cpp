@@ -1,3 +1,8 @@
+// 
+// Este codigo fue obtenido de https://www.youtube.com/channel/UC4LMPKWdhfFlJrJ1BHmRhMQ
+//
+
+
 #include <iostream>
 #include <sys/types.h>
 #include <unistd.h>
