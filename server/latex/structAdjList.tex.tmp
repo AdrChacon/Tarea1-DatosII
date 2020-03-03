@@ -1,0 +1,17 @@
+\hypertarget{structAdjList}{}\section{Adj\+List Struct Reference}
+\label{structAdjList}\index{Adj\+List@{Adj\+List}}
+
+
+Collaboration diagram for Adj\+List\+:
+% FIG 0
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAdjList_a4f2ab2ed8e90ceae8bf50373e4e97e87}\label{structAdjList_a4f2ab2ed8e90ceae8bf50373e4e97e87}} 
+struct \hyperlink{structAdjListNode}{Adj\+List\+Node} $\ast$ \hyperlink{structAdjList_a4f2ab2ed8e90ceae8bf50373e4e97e87}{head}
+\begin{DoxyCompactList}\small\item\em Puntero hacia el inicio de la lista de adyacencia. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+graph.\+cpp\end{DoxyCompactItemize}
