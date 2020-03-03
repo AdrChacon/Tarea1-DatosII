@@ -1,3 +1,8 @@
+// 
+// Este codigo fue obtenido de https://www.youtube.com/channel/UC4LMPKWdhfFlJrJ1BHmRhMQ
+//
+
+
 #include <iostream>
 #include <sys/types.h>
 #include <unistd.h>
@@ -6,23 +11,42 @@
 #include <netdb.h>
 #include <string.h>
 #include <string>
+#include "graph.h"
 
 using namespace std;
 
+/**
+ * Corresponde al main del servidor, inicialmente se crea un grafo de 6 nodos.
+ * Despues de aceptar una conexion de un socket cliente, espera una respuesta
+ * del cliente, que corresponde a el nodo inicial con el que se busca probar
+ * el algoritmo de dijkstra.
+ * @return 
+ */
 int main()
 {
-    // Create socket
+    int V = 6;
+    Graph* graph = createGraph(V);
+    addEdge(graph, 0, 3, 3); 
+    addEdge(graph, 1, 0, 2); 
+    addEdge(graph, 2, 5, 3); 
+    addEdge(graph, 3, 1, 4); 
+    addEdge(graph, 3, 2, 7); 
+    addEdge(graph, 4, 1, 5); 
+    addEdge(graph, 4, 0, 1);
+    addEdge(graph, 5, 4, 2);
+    
+ 
+    
+    
     int listening = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if(listening == -1){
         cerr << "Can't create socket";
         return -1;
     }
     
-    // Bind the socket to an IP / port
     sockaddr_in hint;
     hint.sin_family = AF_INET;
     hint.sin_port = htons(54000);
-    //hint.sin_addr.s_addr = inet_addr("127.0.0.1");
     inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr);
     
     if (bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1){
@@ -30,13 +54,11 @@ int main()
         return -2;
     }
     
-    // Mark the socket for listening in
     if (listen(listening, SOMAXCONN) == -1){
         cerr << "Can't listen";
         return -3;
     }
     
-    // Accept a call
     sockaddr_in client;
     socklen_t clientSize = sizeof(client);
     char host[NI_MAXHOST];
@@ -48,8 +70,9 @@ int main()
         cerr << "Problem with client connecting";
         return -4;
     }
+    int counter = 1;
+    send(clientSocket, "Welcome! Please enter start node & end node (Format: start,end)\n", 65, 0);
     
-    // Close listening socket
     close(listening);
     
     memset(host, 0, NI_MAXHOST);
@@ -65,7 +88,6 @@ int main()
     
     
     
-    // While receiving: display message, echo message
     char buf[4096];
     while(true){
         memset(buf, 0, 4096);
@@ -80,19 +102,26 @@ int main()
             cout << "Client disconnected" << endl;
             break;
         }
-        // Display message received
-        cout << "Test: " << string(buf,0,bytesRecv) << endl;
+
         
+        string userIn(buf);
+        int Node = stoi(userIn);
         
+        string result = dijkstra(graph, Node);
+        int resultLength = result.length();
+        
+        char resultChar[resultLength + 1];
+        
+        strcpy(resultChar, result.c_str());
+        send(clientSocket, resultChar, sizeof(resultChar), 0);
+        
+     
         
         cout << "Received: " << string(buf, 0, bytesRecv) << endl;
-        
-        // Send message
-        send(clientSocket, text.c_str(), sizeof(text), 0);
+      
         
     }
     
-    // Close socket
     close(clientSocket);
             
     return 0;
