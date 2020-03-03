@@ -23,13 +23,11 @@ using namespace std;
  */
 int main(){
     
-    // Create socket
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == -1){
         return 1;
     }
     
-    // Create a hint structure to connect to server
     int port = 54000;
     string ipAddress = "127.0.0.1";
     
@@ -39,7 +37,6 @@ int main(){
     inet_pton(AF_INET, ipAddress.c_str(),&hint.sin_addr);
     
     
-    // Connect to the server on the socket
     int connectResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
     if (connectResult == -1){
         
@@ -50,7 +47,6 @@ int main(){
     int serverHail = recv(sock, hail, 65, 0);
     
     cout << "Server response: " << string(hail, 65) << endl;
-    // While loop
     
     char buf[4096];
     string userInput;
@@ -58,29 +54,24 @@ int main(){
     
     while(true){
         
-        //      Enter lines
         cout << "> ";
         getline(cin, userInput);
         
         
-        //      Send to server
         int sendRes = send(sock, userInput.c_str(), userInput.size()+1,0);
         if (sendRes == -1){
             cout << "Could not connect to server. \r\n";
             continue;
         }
         
-        //      Wait for response
         memset(buf, 0, 4096);
         int bytesReceived = recv(sock, buf, 4096, 0);
         
-        //      Display response
         cout << "SERVER> " << string(buf, bytesReceived) << "\r\n";
         
         
     };
     
-    // Close socket
     close(sock);
     
     return 0;
