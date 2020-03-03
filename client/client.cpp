@@ -16,6 +16,11 @@
 
 using namespace std;
 
+/**
+ * Corresponde al main del cliente, le permite al cliente probar el algoritmo
+ * de dijkstra utilizando un grafo preexistente.
+ * @return 
+ */
 int main(){
     
     // Create socket
@@ -41,13 +46,17 @@ int main(){
         return 2;
     }
     
+    char hail[65];
+    int serverHail = recv(sock, hail, 65, 0);
+    
+    cout << "Server response: " << string(hail, 65) << endl;
     // While loop
     
     char buf[4096];
     string userInput;
     
     
-    do {
+    while(true){
         
         //      Enter lines
         cout << "> ";
@@ -69,7 +78,7 @@ int main(){
         cout << "SERVER> " << string(buf, bytesReceived) << "\r\n";
         
         
-    } while(true);
+    };
     
     // Close socket
     close(sock);

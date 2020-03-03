@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>graph.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -39,6 +40,8 @@
       </compileType>
       <item path="graph.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="graph.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -63,6 +66,8 @@
         </asmTool>
       </compileType>
       <item path="graph.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="graph.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
