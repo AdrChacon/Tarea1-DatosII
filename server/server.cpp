@@ -71,7 +71,7 @@ int main()
         return -4;
     }
     int counter = 1;
-    send(clientSocket, "Welcome! Please enter start node & end node (Format: start,end)\n", 65, 0);
+    send(clientSocket, "Welcome! Please enter start node (0-5)\n", 65, 0);
     
     close(listening);
     
